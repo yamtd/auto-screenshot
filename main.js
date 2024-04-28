@@ -96,7 +96,7 @@ async function autoScroll(page) {
   }, viewportHeight);  // 外部から viewportHeight を渡す
 }
 
-const csvFilePath = "./urls.csv";
+const csvFilePath = "./urls.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
 const outputDir = "./dist";
 takeScreenshots(csvFilePath, outputDir).catch((error) => {
   console.error("エラー詳細:", error.message);
