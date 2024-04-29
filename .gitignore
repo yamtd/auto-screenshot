@@ -1,4 +1,7 @@
 node_modules
 dist/*
-urls.csv
-
+diff/*
+report/*
+reg.json
+url/*
+!url/urls.sample.csv

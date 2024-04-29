@@ -5,8 +5,10 @@ import util from "util";
 import stream from "stream";
 
 const pipeline = util.promisify(stream.pipeline);
-const VIEWPORT_WIDTH = 375;
-const VIEWPORT_HEIGHT = 667;
+// const VIEWPORT_WIDTH = 375;
+const VIEWPORT_WIDTH = 1440;
+// const VIEWPORT_HEIGHT = 667;
+const VIEWPORT_HEIGHT = 900;
 
 async function takeScreenshot(browser, url, outputDir) {
   console.log("指定URLにアクセス:", url);
@@ -81,7 +83,7 @@ async function autoScroll(page) {
   await page.evaluate(async (viewportHeight) => {
     await new Promise((resolve, reject) => {
       let totalHeight = 0;
-      const distance = viewportHeight * 0.5;  // 修正: 外部から渡された viewportHeight を使用
+      const distance = viewportHeight;  // 修正: 外部から渡された viewportHeight を使用
       const timer = setInterval(() => {
         const scrollHeight = document.body.scrollHeight;
         window.scrollBy(0, distance);
@@ -91,13 +93,15 @@ async function autoScroll(page) {
           clearInterval(timer);
           resolve();
         }
-      }, 50);
+      }, 200);
     });
   }, viewportHeight);  // 外部から viewportHeight を渡す
 }
 
-const csvFilePath = "./urls.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
-const outputDir = "./dist";
+const csvFilePath = "./url/urls.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
+// 現在の日時を YYYYMMDD 形式で取得
+const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const outputDir = `./dist/${currentDate}_pc`;
 takeScreenshots(csvFilePath, outputDir).catch((error) => {
   console.error("エラー詳細:", error.message);
 });
