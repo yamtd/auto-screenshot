@@ -32,6 +32,8 @@ async function takeScreenshot(browser, url, outputDir) {
     await autoScroll(page);
     // 最上部に戻す
     await page.evaluate(() => window.scrollTo(0, 0));
+    // 2000ms待つ
+    await page.waitForTimeout(2000);
     // スクリーンショットを取得
     await page.screenshot({
       path: `${outputDir}/${filename}`,
@@ -93,12 +95,12 @@ async function autoScroll(page) {
           clearInterval(timer);
           resolve();
         }
-      }, 200);
+      }, 30);
     });
   }, viewportHeight);  // 外部から viewportHeight を渡す
 }
 
-const csvFilePath = "./url/urls.sample.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
+const csvFilePath = "./url/urls.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
 // 現在の日時を YYYYMMDD 形式で取得
 const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const outputDir = `./dist/${currentDate}_pc`;
