@@ -5,3 +5,4 @@ report/*
 reg.json
 url/*
 !url/urls.sample.csv
+.vscode
