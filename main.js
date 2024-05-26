@@ -83,7 +83,7 @@ async function autoScroll(page) {
   await page.evaluate(async (viewportHeight) => {
     await new Promise((resolve, reject) => {
       let totalHeight = 0;
-      const distance = viewportHeight;  // 修正: 外部から渡された viewportHeight を使用
+      const distance = viewportHeight * .25;  // viewportHeightの1/4ずつずらす
       const timer = setInterval(() => {
         const scrollHeight = document.body.scrollHeight;
         window.scrollBy(0, distance);
@@ -98,7 +98,7 @@ async function autoScroll(page) {
   }, viewportHeight);  // 外部から viewportHeight を渡す
 }
 
-const csvFilePath = "./url/urls.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
+const csvFilePath = "./url/urls.sample.csv"; //urls.sample.csvを参考にurls.csvを作成する必要があります
 // 現在の日時を YYYYMMDD 形式で取得
 const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const outputDir = `./dist/${currentDate}_pc`;
